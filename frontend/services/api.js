@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/analyze";
+const API_URL = "https://invest-ai-backend.onrender.com/api";
 
 export const analyzeCompany = async (companyName) => {
     const response = await axios.post(API_URL, {
