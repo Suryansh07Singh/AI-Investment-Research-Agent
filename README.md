@@ -20,6 +20,9 @@ The goal is to provide a structured and easy-to-understand investment report tha
 
 ---
 
+### Home Page
+![Homepage](screenshots/homepage.png)
+
 # Tech Stack
 
 ### Frontend
@@ -313,9 +316,8 @@ BUY
 * Significant investment in AI and innovation
 
 ---
-## Application Preview
-
-![Microsoft](./screenshots/microsoft-analysis.png)
+### Microsoft Analysis
+![Microsoft Analysis](screenshots/microsoft-analysis.png)
 
 ## Example 2: Tesla
 
@@ -336,9 +338,8 @@ BUY
 * Regulatory and production risks
 
 ---
-## Application Preview
-
-![Tesla](./screenshots/tesla-analysis.png)
+### Tesla Analysis
+![Tesla Analysis](screenshots/tesla-analysis.png)
 
 ## Example 3: Nvidia
 
@@ -357,9 +358,8 @@ BUY
 * Significant investments in research and development
 
 ---
-## Application Preview
-
-![Nvidia](./screenshots/nvidia-analysis.png)
+### Nvidia Analysis
+![Nvidia Analysis](screenshots/nvidia-analysis.png)
 
 # Challenges Faced
 
