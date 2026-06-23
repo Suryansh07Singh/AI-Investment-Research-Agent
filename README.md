@@ -21,7 +21,7 @@ The goal is to provide a structured and easy-to-understand investment report tha
 ---
 
 ### Home Page
-![Homepage](screenshots/homepage.png)
+![Homepage](Screenshots/homepage.png)
 
 # Tech Stack
 
@@ -317,7 +317,7 @@ BUY
 
 ---
 ### Microsoft Analysis
-![Microsoft Analysis](screenshots/microsoft-analysis.png)
+![Microsoft Analysis](Screenshots/microsoft-analysis.png)
 
 ## Example 2: Tesla
 
@@ -339,7 +339,7 @@ BUY
 
 ---
 ### Tesla Analysis
-![Tesla Analysis](screenshots/tesla-analysis.png)
+![Tesla Analysis](Screenshots/tesla-analysis.png)
 
 ## Example 3: Nvidia
 
@@ -359,7 +359,7 @@ BUY
 
 ---
 ### Nvidia Analysis
-![Nvidia Analysis](screenshots/nvidia-analysis.png)
+![Nvidia Analysis](Screenshots/nvidia-analysis.png)
 
 # Challenges Faced
 
