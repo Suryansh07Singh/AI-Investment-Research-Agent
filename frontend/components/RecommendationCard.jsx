@@ -109,24 +109,26 @@ export default function RecommendationCard({ decision,data }) {
 
                     <button
 
-                        className="
-                        bg-gradient-to-r
-                        from-blue-500
-                        to-cyan-500
-                        px-6
-                        py-3
-                        rounded-xl
-                        font-bold
-                        hover:scale-105
-                        transition-all
-                        duration-300
-                        "
+                    onClick={() => downloadReport(data)}
 
-                    >
+                    className="
+                    bg-gradient-to-r
+                    from-blue-500
+                    to-cyan-500
+                    px-6
+                    py-3
+                    rounded-xl
+                    font-bold
+                    hover:scale-105
+                    transition-all
+                    duration-300
+                    "
 
-                        Download PDF Report
+                >
 
-                    </button>
+                    Download PDF Report
+
+                </button>
 
                 </div>
 
