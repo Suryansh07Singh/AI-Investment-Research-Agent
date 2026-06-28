@@ -9,6 +9,7 @@ import { decisionAgent } from "../agents/decisionAgent.js";
 const graph = new StateGraph({
     channels: {
         companyName: {},
+        ticker: {},
         research: {},
         news: {},
         swot: {},

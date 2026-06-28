@@ -16,6 +16,7 @@ export default function Home() {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
+  const [error, setError] = useState("");
 
   const handleSearch = async (companyName) => {
 
@@ -23,7 +24,17 @@ export default function Home() {
 
       setLoading(true);
 
+      // Clear previous data and errors
+      setData(null);
+      setError("");
+
       const response = await analyzeCompany(companyName);
+      console.log(response);
+
+      if (!response.success) {
+        setError(response.message);
+        return;
+      }
 
       setData(response);
 
@@ -31,9 +42,10 @@ export default function Home() {
 
       console.error(error);
 
-      alert(
-        error.response?.data?.error ||
-        error.message
+      setError(
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong."
       );
 
     } finally {
@@ -64,6 +76,12 @@ export default function Home() {
 
         <SearchBar onSearch={handleSearch} />
 
+        {error && (
+          <div className="mt-6 p-4 rounded-lg border border-red-500 bg-red-900/20 text-red-300 text-center font-medium">
+            ❌ {error}
+          </div>
+        )}
+
         {loading && (
 
           <div className="flex justify-center mt-16">
@@ -79,20 +97,31 @@ export default function Home() {
 
         {data && (
 
-            <div className="grid gap-8 mt-12">
+          <div className="grid gap-8 mt-12">
 
-                <CompanyOverviewCard research={data.research} />
-                <NewsCard news={data.news} />
-                <SWOTCard swot={data.swot} />
-                <div className="grid md:grid-cols-2 gap-8">
+            <CompanyOverviewCard research={data.research} />
 
-                    <RiskCard risk={data.risk} />
-                    <RecommendationCard decision={data.decision} data={data} />
+            <NewsCard news={data.news} />
 
-                </div>
-                <InvestmentChart decision={data.decision} risk={data.risk} />
+            <SWOTCard swot={data.swot} />
+
+            <div className="grid md:grid-cols-2 gap-8">
+
+              <RiskCard risk={data.risk} />
+
+              <RecommendationCard
+                decision={data.decision}
+                data={data}
+              />
 
             </div>
+
+            <InvestmentChart
+              decision={data.decision}
+              risk={data.risk}
+            />
+
+          </div>
 
         )}
 
