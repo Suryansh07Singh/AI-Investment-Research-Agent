@@ -112,7 +112,7 @@ http://localhost:3000
 ---
 
 ## System Architecture Diagram
-![System Architure Diagram](Screenshots/SystemArchiDiag.png)
+![System Architecture Diagram](Screenshots/SystemArchidiag.png)
 
 ## 7. Use the Application
 
