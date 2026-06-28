@@ -10,6 +10,8 @@ The goal is to provide a structured and easy-to-understand investment report tha
 
 ## Deployment Links
 Frontend -- https://ai-investment-research-agent-alpha.vercel.app/
+
+
 Backend -- https://ai-investment-research-agent-c2f9.onrender.com/
 
 ### Features
