@@ -111,6 +111,9 @@ http://localhost:3000
 
 ---
 
+## System Architecture Diagram
+![System Architure Diagram](Screenshots/SystemArchiDiag.png)
+
 ## 7. Use the Application
 
 1. Open the frontend in your browser.
