@@ -24,7 +24,6 @@ export default function Home() {
 
       setLoading(true);
 
-      // Clear previous data and errors
       setData(null);
       setError("");
 

@@ -36,12 +36,12 @@ export default function RecommendationCard({ decision,data }) {
 
             <div className="space-y-8">
 
-                {/* Score Meter */}
+                
                 <ScoreMeter
                     score={decision.investment_score}
                 />
 
-                {/* Recommendation */}
+                
                 <div>
 
                     <span className="font-bold text-xl">
@@ -67,7 +67,7 @@ export default function RecommendationCard({ decision,data }) {
 
                 </div>
 
-                {/* Reasoning */}
+                
                 <div>
 
                     <h3 className="text-xl font-bold mb-4">
@@ -103,7 +103,7 @@ export default function RecommendationCard({ decision,data }) {
 
                 </div>
 
-                {/* Download Button */}
+                
 
                 <div className="mt-8">
 

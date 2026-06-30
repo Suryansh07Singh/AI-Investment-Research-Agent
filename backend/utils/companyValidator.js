@@ -1,57 +1,45 @@
 import axios from "axios";
-
-const normalize = (text = "") => {
-    return text
-        .toLowerCase()
-        .replace(/[.,]/g, "")
-        .replace(
-            /\b(inc|incorporated|corp|corporation|ltd|limited|plc|llc|group|holdings?)\b/g,
-            ""
-        )
-        .replace(/\s+/g, " ")
-        .trim();
-};
+import { llm } from "../services/llm.js";
+import { getValidationPrompt } from "../prompts/validationPrompt.js";
 
 export const verifyCompany = async (companyName) => {
     try {
+
         const response = await axios.get(
             `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(companyName)}`
         );
 
         const quotes = response.data.quotes || [];
 
-        const search = normalize(companyName);
+    
+        const companies = quotes.filter(
+            (item) =>
+                item.quoteType === "EQUITY" &&
+                item.symbol &&
+                item.longname
+        );
 
-        const company = quotes.find((item) => {
+        if (companies.length === 0) {
+            return null;
+        }
 
-            if (item.quoteType !== "EQUITY") return false;
+        
+        const company = companies[0];
 
-            const symbol = normalize(item.symbol);
-            const shortname = normalize(item.shortname);
-            const longname = normalize(item.longname);
+        
+        const validationResponse = await llm.invoke(
+            getValidationPrompt(companyName, company)
+        );
 
-            // Exact ticker
-            if (symbol === search) return true;
+        const answer = validationResponse.content
+            .trim()
+            .toUpperCase();
 
-            // Exact company name
-            if (shortname === search || longname === search) return true;
+        if (answer !== "YES") {
+            return null;
+        }
 
-            // Only allow prefix matching for longer inputs
-            if (search.length >= 5) {
-
-                if (
-                    longname.startsWith(search + " ") ||
-                    shortname.startsWith(search + " ")
-                ) {
-                    return true;
-                }
-
-            }
-
-            return false;
-        });
-
-        return company || null;
+        return company;
 
     } catch (error) {
         console.error("Company validation error:", error.message);

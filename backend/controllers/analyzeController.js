@@ -12,7 +12,7 @@ export const analyzeCompany = async (req, res) => {
             });
         }
 
-        // to verify the company name and get its details
+        
         const companyInfo = await verifyCompany(companyName);
 
         if (!companyInfo) {
