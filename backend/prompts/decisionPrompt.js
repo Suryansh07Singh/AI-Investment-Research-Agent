@@ -25,8 +25,8 @@ Give final investment recommendation for ${companyName}.
 Return ONLY JSON:
 
 {
-  "investment_score": 0,
-  "recommendation": "",
-  "reasoning": []
+  "investmentScore":6,
+  "recommendation":"Hold",
+  "reasoning":[]
 }
 `;

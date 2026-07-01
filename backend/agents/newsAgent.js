@@ -7,7 +7,8 @@ export async function newsAgent(state) {
         getNewsPrompt(state.companyName)
     );
 
+    const parsed = safeParse(response.content);
     return {
-        news: safeParse(response.content)
+        news: parsed.news || []
     };
 }

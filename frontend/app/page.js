@@ -1,34 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { ClipLoader } from "react-spinners";
+import { useState, useEffect } from "react";
 
+import HeroSection from "../components/HeroSection";
+import PopularCompanies from "../components/PopularCompanies";
+import AgentProgress from "../components/AgentProgress";
 import SearchBar from "../components/SearchBar";
-import CompanyOverviewCard from "../components/CompanyOverviewCard";
-import NewsCard from "../components/NewsCard";
-import SWOTCard from "../components/SWOTCard";
-import RiskCard from "../components/RiskCard";
-import RecommendationCard from "../components/RecommendationCard";
-import InvestmentChart from "../components/InvestmentChart";
+
+import Dashboard from "../components/Dashboard";
+
 import { analyzeCompany } from "../services/api";
 
 export default function Home() {
-
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
+  const [recentSearches, setRecentSearches] = useState([]);
+
+  useEffect(() => {
+    const saved =
+      JSON.parse(localStorage.getItem("recentCompanies")) || [];
+
+    setRecentSearches(saved);
+  }, []);
 
   const handleSearch = async (companyName) => {
+    if (!companyName.trim()) return;
 
     try {
-
       setLoading(true);
-
-      setData(null);
       setError("");
+      setData(null);
 
       const response = await analyzeCompany(companyName);
-      console.log(response);
 
       if (!response.success) {
         setError(response.message);
@@ -37,96 +41,104 @@ export default function Home() {
 
       setData(response);
 
-    } catch (error) {
+      const updated = [
+        companyName,
+        ...recentSearches.filter(
+          (item) =>
+            item.toLowerCase() !== companyName.toLowerCase()
+        ),
+      ].slice(0, 5);
 
+      setRecentSearches(updated);
+
+      localStorage.setItem(
+        "recentCompanies",
+        JSON.stringify(updated)
+      );
+    } catch (error) {
       console.error(error);
 
       setError(
         error.response?.data?.message ||
-        error.message ||
-        "Something went wrong."
+          error.message ||
+          "Something went wrong."
       );
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   return (
+    <div className="relative min-h-screen bg-[#020617] text-white overflow-hidden">
 
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
+      {/* <AnimatedBackground /> */}
 
-      <div className="max-w-6xl mx-auto px-6 py-10">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-8 py-10">
 
-        <h1 className="text-6xl font-bold text-center mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+        {/* Landing Section */}
 
-          InvestAI
+        <HeroSection />
 
-        </h1>
+        <div className="mt-10">
+          <SearchBar onSearch={handleSearch} />
+        </div>
 
-        <p className="text-center text-gray-400 mb-10">
+        <div className="mt-8">
+          <PopularCompanies onSelect={handleSearch} />
+        </div>
 
-          Multi-Agent Investment Research using LangGraph & Llama 3.3 70B
+        {/* Recent Searches */}
 
-        </p>
+        {recentSearches.length > 0 && (
+          <div className="mt-8">
 
-        <SearchBar onSearch={handleSearch} />
+            <p className="text-center text-slate-400 mb-5 text-sm uppercase tracking-widest">
+              Recent Searches
+            </p>
 
-        {error && (
-          <div className="mt-6 p-4 rounded-lg border border-red-500 bg-red-900/20 text-red-300 text-center font-medium">
-            ❌ {error}
-          </div>
-        )}
+            <div className="flex flex-wrap justify-center gap-3">
 
-        {loading && (
+              {recentSearches.map((company) => (
 
-          <div className="flex justify-center mt-16">
+                <button
+                  key={company}
+                  onClick={() => handleSearch(company)}
+                  className="px-5 py-2 rounded-full border border-slate-700 bg-slate-900/70 hover:border-cyan-400 hover:bg-slate-800 transition-all duration-300"
+                >
+                  {company}
+                </button>
 
-            <ClipLoader
-              color="#3B82F6"
-              size={60}
-            />
-
-          </div>
-
-        )}
-
-        {data && (
-
-          <div className="grid gap-8 mt-12">
-
-            <CompanyOverviewCard research={data.research} />
-
-            <NewsCard news={data.news} />
-
-            <SWOTCard swot={data.swot} />
-
-            <div className="grid md:grid-cols-2 gap-8">
-
-              <RiskCard risk={data.risk} />
-
-              <RecommendationCard
-                decision={data.decision}
-                data={data}
-              />
+              ))}
 
             </div>
 
-            <InvestmentChart
-              decision={data.decision}
-              risk={data.risk}
-            />
+          </div>
+        )}
+
+        {/* Error */}
+
+        {error && (
+
+          <div className="mt-10 max-w-3xl mx-auto rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-center text-red-300">
+
+            ❌ {error}
 
           </div>
 
         )}
+
+        {/* Loading */}
+
+        {loading && <AgentProgress />}
+
+        {/* ====================== */}
+        {/* Dashboard */}
+        {/* ====================== */}
+
+        {data && <Dashboard data={data} />}
 
       </div>
 
     </div>
-
   );
 }

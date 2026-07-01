@@ -1,9 +1,15 @@
 export const getNewsPrompt = (companyName) => `
-Give recent important news about ${companyName}.
+Give the 5 most important recent news articles about ${companyName}.
 
-Return ONLY JSON:
+Return ONLY valid JSON.
 
 {
-  "news":[]
+  "news":[
+    {
+      "title":"",
+      "date":"",
+      "summary":""
+    }
+  ]
 }
 `;
