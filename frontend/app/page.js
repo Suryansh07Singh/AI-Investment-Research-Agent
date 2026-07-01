@@ -71,7 +71,6 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-[#020617] text-white overflow-hidden">
 
-      {/* <AnimatedBackground /> */}
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-8 py-10">
 
