@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "http://localhost:5000/api/analyze";
+  "https://ai-investment-research-agent-c2f9.onrender.com/api/analyze";
 
 export const analyzeCompany = async (companyName) => {
     try {
